@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Fun for Kids - Login</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b, #415a77);
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Layer 1: Small twinkling stars */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.7;
+            z-index: 0;
+            animation: twinkle 2s infinite;
+        }
+
+        /* Layer 2: Larger twinkling stars */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 2px);
+            background-size: 80px 80px;
+            opacity: 0.5;
+            z-index: 0;
+            animation: twinkle 4s infinite;
+        }
+
+        /* Crescent Moon with Halo */
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 70% 70%, transparent 30%, #f0f0f0 35%, #d0d0d0 50%, transparent 55%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.3);
+            z-index: 0;
+        }
+
+        /* Shooting Star */
+        .shooting-star {
+            position: absolute;
+            top: 20%;
+            left: -50px;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            box-shadow: 0 0 10px #ffffff;
+            animation: shoot 5s infinite;
+            z-index: 0;
+        }
+
+        /* Aurora Glow */
+        .aurora {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(0deg, rgba(0, 255, 191, 0.3), transparent);
+            opacity: 0.5;
+            animation: aurora-glow 8s infinite;
+            z-index: 0;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: clamp(28px, 6vw, 40px);
+            margin: 20px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            z-index: 1;
+            position: relative;
+            animation: bounce 2s infinite;
+        }
+
+        .login-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 220, 255, 0.7)); /* Soft gradient with a celestial tint */
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(147, 112, 219, 0.3); /* Glowing shadow */
+            width: clamp(250px, 80%, 350px);
+            margin: 0 auto;
+            text-align: center;
+            transition: transform 0.3s ease;
+            z-index: 1;
+            position: relative;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        /* Constellation-like glowing border */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 23px;
+            background: linear-gradient(45deg, #00ddeb, #ff00ff, #00ddeb);
+            z-index: -1;
+            animation: glow-border 3s infinite;
+        }
+
+        .login-container:hover {
+            transform: scale(1.03);
+        }
+
+        h2 {
+            color: #00ddeb; /* Cyan to match the celestial theme */
+            font-size: clamp(20px, 4vw, 26px);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 221, 235, 0.7);
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: clamp(12px, 2vw, 15px);
+            margin: 10px auto;
+            border-radius: 15px;
+            font-size: clamp(16px, 3vw, 18px);
+            border: 2px solid #00ddeb; /* Cyan border */
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(200, 220, 255, 0.5)); /* Glowing orb-like background */
+            color: #1b263b; /* Dark blue text for contrast */
+            box-shadow: 0 0 10px rgba(0, 221, 235, 0.5);
+            position: relative;
+        }
+
+        input[type="text"]::before, input[type="password"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #ff00ff; /* Magenta on focus */
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+            transform: scale(1.02);
+            outline: none;
+        }
+
+        input[type="password"] {
+            letter-spacing: 2px;
+        }
+
+        button {
+            padding: clamp(12px, 2vw, 15px) 25px;
+            background: linear-gradient(45deg, #00ddeb, #ff00ff); /* Celestial gradient */
+            color: #fff;
+            font-size: clamp(16px, 3vw, 20px);
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 221, 235, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: sparkle 2s infinite;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .error {
+            color: #ff00ff; /* Magenta to match the theme */
+            font-size: clamp(14px, 2.5vw, 16px);
+            margin-top: 10px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+        }
+
+        /* Animation for the title */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Twinkling stars animation */
+        @keyframes twinkle {
+            0% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Shooting star animation */
+        @keyframes shoot {
+            0% { transform: translateX(-100vw) translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            40% { transform: translateX(100vw) translateY(50vh); opacity: 0; }
+            100% { transform: translateX(100vw) translateY(50vh); opacity: 0; }
+        }
+
+        /* Aurora glow animation */
+        @keyframes aurora-glow {
+            0% { background: linear-gradient(0deg, rgba(0, 255, 191, 0.3), transparent); }
+            50% { background: linear-gradient(0deg, rgba(147, 112, 219, 0.3), transparent); }
+            100% { background: linear-gradient(0deg, rgba(0, 255, 191, 0.3), transparent); }
+        }
+
+        /* Glowing border animation */
+        @keyframes glow-border {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sparkle animation for button */
+        @keyframes sparkle {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Floating stars for decoration */
+        .star {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: url('https://img.icons8.com/emoji/48/000000/star-emoji.png') no-repeat center;
+            background-size: contain;
+            animation: float 5s infinite ease-in-out;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(-20px); opacity: 0.4; }
+            100% { transform: translateY(0); opacity: 0.7; }
+        }
+
+        /* Media Queries */
+        @media (max-width: 480px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+            h1 {
+                margin-top: 10px;
+            }
+            .moon {
+                width: 60px;
+                height: 60px;
+            }
+            .shooting-star {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Math Fun for Kids!</h1>
+
+    <div class="login-container">
+        <h2>Login to Start Learning</h2>
+
+        <!-- Name and Password Fields -->
+        <form id="loginForm" onsubmit="return validateForm(event)">
+            <input type="text" id="name" placeholder="Enter your Name" required>
+            <input type="password" id="password" placeholder="Enter 6-digit Password" maxlength="6" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="error" id="error-message"></p>
+    </div>
+
+    <!-- Night Sky Elements -->
+    <div class="moon"></div>
+    <div class="shooting-star"></div>
+    <div class="aurora"></div>
+
+    <!-- Floating stars -->
+    <div class="star" style="top: 10%; left: 10%;"></div>
+    <div class="star" style="top: 20%; left: 80%; animation-delay: 1s;"></div>
+    <div class="star" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+    <div class="star" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+
+    <script>
+        // Validate the login form
+        function validateForm(event) {
+            const name = document.getElementById('name').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            // Prevent the form from being submitted
+            event.preventDefault();
+
+            // Check if the password is exactly 6 digits
+            if (password.length !== 6 || isNaN(password)) {
+                errorMessage.textContent = "Password must be exactly 6 digits.";
+                return false; // Prevent redirection if validation fails
+            }
+
+            // If everything is valid, redirect to the next page
+            alert('Welcome, ' + name + '!');
+
+            // Redirect to the next webpage after login
+            window.location.href = 'http://127.0.0.1:5501/2main.html'; // Change this URL to the desired page
+            return true;
+        }
+    </script>
+
+</body>
+</html>
