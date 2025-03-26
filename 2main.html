@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Math Function</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg, #1b263b, #2a3b5a, #4a5b7a);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            overflow: auto; /* Changed to allow scrolling */
+        }
+
+        /* Layer 1: Subtle twinkling stars */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+            z-index: 0;
+            animation: twinkle 3s infinite;
+        }
+
+        /* Floating math symbols */
+        .math-symbol {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(20px, 3vw, 30px);
+            font-weight: bold;
+            animation: float 6s infinite ease-in-out;
+            z-index: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(-30px); opacity: 0.4; }
+            100% { transform: translateY(0); opacity: 0.7; }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.2; }
+            100% { opacity: 0.5; }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: clamp(30px, 5vw, 50px);
+            margin-top: clamp(20px, 3vw, 50px);
+            margin-bottom: clamp(20px, 3vw, 30px);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            z-index: 1;
+            position: relative;
+        }
+
+        .function-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(20px, 3vw, 40px);
+            margin-top: clamp(20px, 3vw, 50px);
+            margin-bottom: clamp(40px, 5vw, 80px);
+            z-index: 1;
+            position: relative;
+        }
+
+        .function-row {
+            display: flex;
+            justify-content: center;
+            gap: clamp(20px, 3vw, 40px);
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .function-box {
+            width: clamp(150px, 20vw, 250px);
+            height: clamp(150px, 20vw, 250px);
+            background: linear-gradient(135deg, #ff4081, #ff9100);
+            color: white;
+            font-size: clamp(18px, 2.5vw, 28px);
+            font-weight: bold;
+            border-radius: clamp(10px, 2vw, 20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+            z-index: 1;
+            position: relative;
+        }
+
+        .function-box:hover, .function-box:active {
+            background: linear-gradient(135deg, #d500f9, #ff1744);
+            transform: scale(1.1);
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: clamp(15px, 2vw, 25px);
+            background-color: #ff4081;
+            color: white;
+            font-size: clamp(14px, 1.8vw, 20px);
+            font-weight: bold;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            /* Tablet and smaller */
+            body::before {
+                background-size: 40px 40px;
+            }
+
+            .math-symbol {
+                font-size: clamp(15px, 2vw, 20px);
+            }
+
+            .function-row {
+                flex-direction: column;
+                align-items: center;
+                gap: clamp(15px, 2vw, 20px);
+            }
+
+            .function-box {
+                width: clamp(200px, 40vw, 300px);
+                height: clamp(120px, 15vw, 150px);
+                font-size: clamp(16px, 2vw, 20px);
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .function-container {
+                margin-bottom: clamp(30px, 4vw, 50px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Mobile */
+            body::before {
+                background-size: 30px 30px;
+            }
+
+            .math-symbol {
+                font-size: clamp(12px, 3vw, 15px);
+            }
+
+            .function-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .function-box {
+                width: clamp(180px, 80%, 250px);
+                height: clamp(100px, 25vw, 120px);
+                font-size: clamp(14px, 4vw, 18px);
+                border-radius: 10px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+                padding: 8px;
+            }
+
+            .function-container {
+                margin-top: 10px;
+                margin-bottom: 20px;
+                gap: 10px;
+            }
+
+            h1 {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .footer {
+                padding: 10px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            /* Desktop */
+            body::before {
+                background-size: 60px 60px;
+            }
+
+            .math-symbol {
+                font-size: clamp(25px, 2vw, 35px);
+            }
+
+            .function-box {
+                width: 300px;
+                height: 300px;
+                font-size: 32px;
+                border-radius: 25px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            }
+
+            .function-row {
+                gap: 50px;
+            }
+
+            .function-container {
+                margin-top: 70px;
+                margin-bottom: 100px;
+                gap: 50px;
+            }
+
+            h1 {
+                font-size: 60px;
+                margin-top: 70px;
+            }
+
+            .footer {
+                padding: 30px;
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Select Your Function to Perform</h1>
+
+    <div class="function-container">
+        <!-- First Row: Addition and Subtraction -->
+        <div class="function-row">
+            <div class="function-box" onclick="window.location.href='http://127.0.0.1:5501/3addition_options.html'">
+                Addition
+            </div>
+
+            <div class="function-box" onclick="window.location.href='http://127.0.0.1:5501/4subraction_options.html'">
+                Subtraction
+            </div>
+        </div>
+
+        <!-- Second Row: Multiplication and Division -->
+        <div class="function-row">
+            <div class="function-box" onclick="window.location.href='http://127.0.0.1:5501/5multiplication_options.html'">
+                Multiplication
+            </div>
+
+            <div class="function-box" onclick="window.location.href='http://127.0.0.1:5501/6division_options.html'">
+                Division
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Math Symbols -->
+    <div class="math-symbol" style="top: 10%; left: 15%;">+</div>
+    <div class="math-symbol" style="top: 20%; left: 75%; animation-delay: 1s;">-</div>
+    <div class="math-symbol" style="top: 30%; left: 25%; animation-delay: 2s;">×</div>
+    <div class="math-symbol" style="top: 40%; left: 65%; animation-delay: 3s;">÷</div>
+    <div class="math-symbol" style="top: 50%; left: 10%; animation-delay: 1.5s;">5</div>
+    <div class="math-symbol" style="top: 60%; left: 80%; animation-delay: 2.5s;">3</div>
+    <div class="math-symbol" style="top: 70%; left: 20%; animation-delay: 0.5s;">=</div>
+
+    <div class="footer">
+        © 2025 Math Fun for Kids | All Rights Reserved
+    </div>
+
+</body>
+</html>
